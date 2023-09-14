@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean class="com.tsr.controller.BookTicketController" id="bookTicketController"/>
+	<bean class="com.tsr.controller.CancelTicketController" id="cancelTicketController"/>
+	<bean class="com.tsr.controller.PNRStatusController" id="PNRStatusController"/>
+	<bean class="com.tsr.controller.PrintTicketController" id="printTicketController"/>
+	
+	<bean class="com.tsr.interceptor.ServiceInterruptionInterceptor" id="serviceInterruptionInterceptor"/>
+	
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/book-ticket.mvc">bookTicketController</prop>
+				<prop key="/cancel-ticket.mvc">cancelTicketController</prop>
+			</props>
+		</property>
+		<property name="interceptors">
+			<list>
+				<ref bean="serviceInterruptionInterceptor"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/pnr-status.mvc">PNRStatusController</prop>
+				<prop key="/print-ticket.mvc">printTicketController</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+</beans>
