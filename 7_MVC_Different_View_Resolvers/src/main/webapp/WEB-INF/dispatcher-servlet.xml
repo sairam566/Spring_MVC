@@ -8,16 +8,18 @@
 		<property name="mappings">
 			<props>
 				<prop key="/about-us.htm">aboutUs</prop>
+				<prop key="/contact-us.htm">contactUs</prop>
 			</props>
 		</property>
 	</bean>
 
-	<bean
-		class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-		id="aboutUs">
+	<bean class="org.springframework.web.servlet.mvc.ParameterizableViewController" id="aboutUs">
 		<property name="viewName" value="about-us"></property>
 	</bean>
-
+	<bean class="org.springframework.web.servlet.mvc.ParameterizableViewController" id="contactUs">
+		<property name="viewName" value="contactUs-view"></property>
+	</bean>
+	
 	<!-- 
 		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 			<property name="prefix" value="/WEB-INF/jsp/"/> 
@@ -44,9 +46,27 @@
 		<property name="location" value="/WEB-INF/xml_views/views.xml"/>
 	</bean> 
 	-->
+	<!-- 
 	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"/> 
 		<property name="suffix" value=".jsp"/>
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-	</bean>
+	</bean> 
+	-->
+	
+	<!-- Example of View Resolver chain -->
+	
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+	
+	<bean class="org.springframework.web.servlet.view.JstlView" id="contactUs-view">
+		<property name="url" value="/WEB-INF/jsp/contact-us.jsp"/>
+	</bean> 
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+			<property name="prefix" value="/WEB-INF/jsp/"/> 
+			<property name="suffix" value=".jsp"/> 
+	</bean> 
+	
+	
+	
 </beans>
