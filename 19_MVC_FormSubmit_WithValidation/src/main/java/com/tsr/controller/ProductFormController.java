@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,14 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.tsr.form.ProductForm;
 import com.tsr.validator.ProductFormValidator;
 
-
-
 @Controller
 @RequestMapping("/add-product.htm")
 public class ProductFormController {
 	@Autowired
 	private ProductFormValidator validator;
-
+	
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(validator);
+	}
 	
 	@GetMapping
 	public String showAddProductForm(ModelMap model) {
@@ -33,11 +35,12 @@ public class ProductFormController {
 	}
 
 	@PostMapping
-	public String addProduct(@ModelAttribute("productForm") ProductForm productForm, BindingResult errors,
+	public String addProduct(@ModelAttribute("productForm") @Validated ProductForm productForm, BindingResult errors,
 			ModelMap model) {
 
-		  if (validator.supports(productForm.getClass())) {
-		  validator.validate(productForm, errors); }
+//		if (validator.supports(productForm.getClass())) {
+//			validator.validate(productForm, errors);
+//		}
 
 		if (errors.hasErrors()) {
 			return "add-product";
