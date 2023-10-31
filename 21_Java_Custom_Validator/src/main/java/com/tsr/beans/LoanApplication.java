@@ -1,5 +1,9 @@
 package com.tsr.beans;
 
+import com.tsr.validator.AgricultureGroup;
+import com.tsr.validator.AutomobileGroup;
+import com.tsr.validator.GoldLoanGroup;
+import com.tsr.validator.HomeLoanGroup;
 import com.tsr.validator.LoanType;
 
 import jakarta.validation.constraints.Email;
@@ -35,4 +39,33 @@ public class LoanApplication {
 	
 	@NotBlank(message = "contactNo cannot be blank")
 	private String contactNo;
+	
+	//-------------AgricultureGroup --------------------//
+	@NotBlank(message = "Crop Type cannot be blank",groups = {AgricultureGroup.class} )
+	private String cropType;
+	
+	@Min(value = 5,message = "Minimum of 5 acres land only eligible for loan" ,groups = {AgricultureGroup.class})
+	@Max(value = 20,message = "Maximum of 20 acres land only eligible for loan" ,groups = {AgricultureGroup.class})
+	private int acres;
+	
+	//-------------AutomobileGroup --------------------//
+	@NotBlank(message = "VehicleType cannot be blank", groups = {AutomobileGroup.class})
+	private String vehicleType;
+	
+	@NotBlank(message = "Manufacturer cannot be blank", groups = { AutomobileGroup.class })
+	private String manufacturer;
+	
+	//-------------GoldLoanGroup --------------------//
+	@Positive(message = "grams should be non-zero positive integer", groups = { GoldLoanGroup.class })
+	private int grams;
+	
+	@NotBlank(message = "purity cannot be blank", groups = { GoldLoanGroup.class })
+	private String purity;
+	
+	//-------------HomeLoanGroup --------------------//
+	@NotBlank(message = "propertyType cannot be blank", groups = { HomeLoanGroup.class })
+	private String propertyType;
+	
+	@Positive(message = "sqYards should be non-zero positive integer", groups = { HomeLoanGroup.class })
+	private int sqYards;
 }
