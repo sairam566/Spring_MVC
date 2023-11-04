@@ -5,6 +5,7 @@ import com.tsr.validator.AutomobileGroup;
 import com.tsr.validator.GoldLoanGroup;
 import com.tsr.validator.HomeLoanGroup;
 import com.tsr.validator.LoanType;
+import com.tsr.validator.Severity;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
@@ -44,8 +45,9 @@ public class LoanApplication {
 	@NotBlank(message = "Crop Type cannot be blank",groups = {AgricultureGroup.class} )
 	private String cropType;
 	
-	@Min(value = 5,message = "Minimum of 5 acres land only eligible for loan" ,groups = {AgricultureGroup.class})
-	@Max(value = 20,message = "Maximum of 20 acres land only eligible for loan" ,groups = {AgricultureGroup.class})
+	@Positive(message = "Acres should be non-zero positive number", groups = {AgricultureGroup.class},payload = {Severity.FATAL.class})
+	@Min(value = 5,message = "Minimum of 5 acres land only eligible for loan" ,groups = {AgricultureGroup.class} ,payload = { Severity.ERROR.class })
+	@Max(value = 20,message = "Maximum of 20 acres land only eligible for loan" ,groups = {AgricultureGroup.class}, payload = { Severity.ERROR.class })
 	private int acres;
 	
 	//-------------AutomobileGroup --------------------//
