@@ -38,10 +38,8 @@ public class App
     		Set<Class<? extends Payload>> payloads = violation.getConstraintDescriptor().getPayload();
     		for (Class<? extends Payload> payload : payloads) {
     			if (payload == Severity.FATAL.class) {
-    				System.out.println(violation.getConstraintDescriptor().getAnnotation().annotationType().getName());
-    				for (Node node : violation.getPropertyPath()) {
-						System.out.println(node.getName());
-					}
+    				System.out.println(violation.getMessage());
+    				
     			}
     		}
 			//System.out.println(violation.getMessage());
