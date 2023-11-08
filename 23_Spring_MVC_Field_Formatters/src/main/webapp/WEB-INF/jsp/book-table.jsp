@@ -39,9 +39,9 @@
 		Reservation Hotal Name : 
 		<form:select path="restaurantName">
 			<form:option value="">Select</form:option>
-			<form:option value="x">X</form:option>
-			<form:option value="y">Y</form:option>
-			<form:option value="Z">Z</form:option>
+			<c:forEach items="${restaurants}" var="restaurant">
+				<form:option value="${restaurant.key}">${restaurant.value}</form:option>
+			</c:forEach>
 		</form:select>
 		<br />
 		contact Number :<form:input path="contactNo" />
