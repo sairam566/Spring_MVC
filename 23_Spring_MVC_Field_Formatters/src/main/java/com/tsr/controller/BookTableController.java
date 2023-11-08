@@ -1,5 +1,7 @@
 package com.tsr.controller;
 
+import java.io.IOException;
+import java.util.Properties;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -52,5 +54,12 @@ public class BookTableController {
 				.build();
 		modelMap.addAttribute("booking", bookingDto);
 		return "Table-Details";
+	}
+	
+	@ModelAttribute("restaurants")
+	public Properties getHotelNames() throws IOException {
+		Properties restaurants = new Properties();
+		restaurants.load(this.getClass().getClassLoader().getResourceAsStream("hotels.properties"));
+		return restaurants;
 	}
 }
