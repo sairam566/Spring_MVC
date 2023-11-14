@@ -2,6 +2,7 @@ package com.tsr.service;
 
 import org.springframework.stereotype.Service;
 
+import com.tsr.exceptions.InvalidProductException;
 import com.tsr.exceptions.ProductInventoryException;
 import com.tsr.exceptions.ProductNotFoundException;
 import com.tsr.form.SearchForm;
@@ -16,6 +17,9 @@ public class SearchService {
 		}
 		if(form.getValue().equalsIgnoreCase("y")) {
 			throw new ProductInventoryException("Error failed to fetch Product");
+		}
+		if(form.getValue().equalsIgnoreCase("z")) {
+			throw new InvalidProductException("Invalid Product");
 		}
 		return form.getValue();
 	}
